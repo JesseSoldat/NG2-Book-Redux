@@ -1,26 +1,58 @@
+import { Component } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { MinimalReduxComponent } from './tutorial/minimal_redux.component';
+import { createStore, Store, StoreEnhancer } from 'redux';
 
-import { AppStore } from './tutorial/app_store';
-import { AppState } from './tutorial/app_state';
+
+import { AppComponent } from './app.component';
+
+import { CounterComponent } from './tutorial/counter.component';
+
+import { AppStore } from './tutorial/app-store';
+import { AppState } from './tutorial/app-state';
+
+import { counterReducer } from './tutorial/counter-reducer';
+
+let devtools: StoreEnhancer<AppState> =
+  window['devToolsExtension'] ?
+  window['devToolsExtension']() : f => f;
+
+ let store: Store<AppState> = createStore<AppState>(
+ 	counterReducer,
+ 	devtools
+ );
+
+ @Component({
+	selector: 'minimal-redux',
+	template:`
+	<div>
+		<counter></counter>
+	</div>
+	`
+})
+
+class MinimalReduxComponent {}
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MinimalReduxComponent
+    MinimalReduxComponent,
+    CounterComponent
+   
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+  	{provide: AppStore, useValue: store }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

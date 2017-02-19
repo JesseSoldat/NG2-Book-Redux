@@ -96,3 +96,7 @@ store.dispatch(
   MessageActions.addMessage('Do you know about JLab?'));
 
 console.log(store.getState());
+
+store.dispatch( MessageActions.deleteMessage(0) );
+
+console.log(store.getState());
