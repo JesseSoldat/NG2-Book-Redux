@@ -1,5 +1,3 @@
-import { Component } from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,9 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { createStore, Store, StoreEnhancer } from 'redux';
 
-
 import { AppComponent } from './app.component';
-
 import { CounterComponent } from './tutorial/counter.component';
 
 import { AppStore } from './tutorial/app-store';
@@ -26,22 +22,9 @@ let devtools: StoreEnhancer<AppState> =
  	devtools
  );
 
- @Component({
-	selector: 'minimal-redux',
-	template:`
-	<div>
-		<counter></counter>
-	</div>
-	`
-})
-
-class MinimalReduxComponent {}
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    MinimalReduxComponent,
     CounterComponent
    
   ],
